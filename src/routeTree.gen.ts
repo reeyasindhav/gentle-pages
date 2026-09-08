@@ -10,13 +10,44 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PromptsRouteImport } from './routes/prompts'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as ReviewRouteImport } from './routes/review'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as StatsRouteImport } from './routes/stats'
+import { Route as TagsRouteImport } from './routes/tags'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TodayRouteImport } from './routes/today'
+import { Route as BooksIndexRouteImport } from './routes/books/index'
+import { Route as BooksBookIdRouteImport } from './routes/books/$bookId'
+import { Route as EntriesIndexRouteImport } from './routes/entries/index'
+import { Route as EntriesEntryIdRouteImport } from './routes/entries/$entryId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalendarRoute = CalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritesRoute = FavoritesRouteImport.update({
+  id: '/favorites',
+  path: '/favorites',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -24,9 +55,34 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PromptsRoute = PromptsRouteImport.update({
+  id: '/prompts',
+  path: '/prompts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewRoute = ReviewRouteImport.update({
+  id: '/review',
+  path: '/review',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -34,39 +90,204 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StatsRoute = StatsRouteImport.update({
+  id: '/stats',
+  path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TagsRoute = TagsRouteImport.update({
+  id: '/tags',
+  path: '/tags',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodayRoute = TodayRouteImport.update({
+  id: '/today',
+  path: '/today',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooksIndexRoute = BooksIndexRouteImport.update({
+  id: '/books/',
+  path: '/books/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BooksBookIdRoute = BooksBookIdRouteImport.update({
+  id: '/books/$bookId',
+  path: '/books/$bookId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntriesIndexRoute = EntriesIndexRouteImport.update({
+  id: '/entries/',
+  path: '/entries/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntriesEntryIdRoute = EntriesEntryIdRouteImport.update({
+  id: '/entries/$entryId',
+  path: '/entries/$entryId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/calendar': typeof CalendarRoute
+  '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/privacy': typeof PrivacyRoute
+  '/prompts': typeof PromptsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/stats': typeof StatsRoute
+  '/tags': typeof TagsRoute
+  '/terms': typeof TermsRoute
+  '/today': typeof TodayRoute
+  '/books/$bookId': typeof BooksBookIdRoute
+  '/entries/$entryId': typeof EntriesEntryIdRoute
+  '/books/': typeof BooksIndexRoute
+  '/entries/': typeof EntriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/calendar': typeof CalendarRoute
+  '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/privacy': typeof PrivacyRoute
+  '/prompts': typeof PromptsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/stats': typeof StatsRoute
+  '/tags': typeof TagsRoute
+  '/terms': typeof TermsRoute
+  '/today': typeof TodayRoute
+  '/books/$bookId': typeof BooksBookIdRoute
+  '/entries/$entryId': typeof EntriesEntryIdRoute
+  '/books': typeof BooksIndexRoute
+  '/entries': typeof EntriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/calendar': typeof CalendarRoute
+  '/favorites': typeof FavoritesRoute
   '/login': typeof LoginRoute
+  '/onboarding': typeof OnboardingRoute
+  '/privacy': typeof PrivacyRoute
+  '/prompts': typeof PromptsRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/review': typeof ReviewRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/stats': typeof StatsRoute
+  '/tags': typeof TagsRoute
+  '/terms': typeof TermsRoute
+  '/today': typeof TodayRoute
+  '/books/$bookId': typeof BooksBookIdRoute
+  '/entries/$entryId': typeof EntriesEntryIdRoute
+  '/books/': typeof BooksIndexRoute
+  '/entries/': typeof EntriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/reset-password' | '/signup'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/calendar'
+    | '/favorites'
+    | '/login'
+    | '/onboarding'
+    | '/privacy'
+    | '/prompts'
+    | '/reset-password'
+    | '/review'
+    | '/settings'
+    | '/signup'
+    | '/stats'
+    | '/tags'
+    | '/terms'
+    | '/today'
+    | '/books/$bookId'
+    | '/entries/$entryId'
+    | '/books/'
+    | '/entries/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/reset-password' | '/signup'
-  id: '__root__' | '/' | '/login' | '/reset-password' | '/signup'
+  to:
+    | '/'
+    | '/about'
+    | '/calendar'
+    | '/favorites'
+    | '/login'
+    | '/onboarding'
+    | '/privacy'
+    | '/prompts'
+    | '/reset-password'
+    | '/review'
+    | '/settings'
+    | '/signup'
+    | '/stats'
+    | '/tags'
+    | '/terms'
+    | '/today'
+    | '/books/$bookId'
+    | '/entries/$entryId'
+    | '/books'
+    | '/entries'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/calendar'
+    | '/favorites'
+    | '/login'
+    | '/onboarding'
+    | '/privacy'
+    | '/prompts'
+    | '/reset-password'
+    | '/review'
+    | '/settings'
+    | '/signup'
+    | '/stats'
+    | '/tags'
+    | '/terms'
+    | '/today'
+    | '/books/$bookId'
+    | '/entries/$entryId'
+    | '/books/'
+    | '/entries/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  CalendarRoute: typeof CalendarRoute
+  FavoritesRoute: typeof FavoritesRoute
   LoginRoute: typeof LoginRoute
+  OnboardingRoute: typeof OnboardingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  PromptsRoute: typeof PromptsRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  ReviewRoute: typeof ReviewRoute
+  SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
+  StatsRoute: typeof StatsRoute
+  TagsRoute: typeof TagsRoute
+  TermsRoute: typeof TermsRoute
+  TodayRoute: typeof TodayRoute
+  BooksBookIdRoute: typeof BooksBookIdRoute
+  EntriesEntryIdRoute: typeof EntriesEntryIdRoute
+  BooksIndexRoute: typeof BooksIndexRoute
+  EntriesIndexRoute: typeof EntriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -78,11 +299,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar': {
+      id: '/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favorites': {
+      id: '/favorites'
+      path: '/favorites'
+      fullPath: '/favorites'
+      preLoaderRoute: typeof FavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prompts': {
+      id: '/prompts'
+      path: '/prompts'
+      fullPath: '/prompts'
+      preLoaderRoute: typeof PromptsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -92,6 +355,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/review': {
+      id: '/review'
+      path: '/review'
+      fullPath: '/review'
+      preLoaderRoute: typeof ReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
@@ -99,14 +376,86 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stats': {
+      id: '/stats'
+      path: '/stats'
+      fullPath: '/stats'
+      preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tags': {
+      id: '/tags'
+      path: '/tags'
+      fullPath: '/tags'
+      preLoaderRoute: typeof TagsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/today': {
+      id: '/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof TodayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/books/': {
+      id: '/books/'
+      path: '/books'
+      fullPath: '/books/'
+      preLoaderRoute: typeof BooksIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/books/$bookId': {
+      id: '/books/$bookId'
+      path: '/books/$bookId'
+      fullPath: '/books/$bookId'
+      preLoaderRoute: typeof BooksBookIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entries/': {
+      id: '/entries/'
+      path: '/entries'
+      fullPath: '/entries/'
+      preLoaderRoute: typeof EntriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entries/$entryId': {
+      id: '/entries/$entryId'
+      path: '/entries/$entryId'
+      fullPath: '/entries/$entryId'
+      preLoaderRoute: typeof EntriesEntryIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  CalendarRoute: CalendarRoute,
+  FavoritesRoute: FavoritesRoute,
   LoginRoute: LoginRoute,
+  OnboardingRoute: OnboardingRoute,
+  PrivacyRoute: PrivacyRoute,
+  PromptsRoute: PromptsRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  ReviewRoute: ReviewRoute,
+  SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
+  StatsRoute: StatsRoute,
+  TagsRoute: TagsRoute,
+  TermsRoute: TermsRoute,
+  TodayRoute: TodayRoute,
+  BooksBookIdRoute: BooksBookIdRoute,
+  EntriesEntryIdRoute: EntriesEntryIdRoute,
+  BooksIndexRoute: BooksIndexRoute,
+  EntriesIndexRoute: EntriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

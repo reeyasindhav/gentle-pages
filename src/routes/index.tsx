@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Flame, Quote, Sparkles, Tag } from "lucide-react";
+import { ArrowRight, CalendarDays, Flame, Home, Quote, Star, Tag } from "lucide-react";
+import { useSession } from "@/hooks/use-session";
 import { Logo } from "@/components/Logo";
 import { MoodDot } from "@/components/MoodDot";
 import { entries, moods, prompts } from "@/lib/journal-data";
@@ -44,35 +45,49 @@ const features = [
     body: "Your year as a field of small marks. Tap any day to reread what you were thinking.",
   },
   {
-    icon: Sparkles,
+    icon: Star,
     title: "Yearly reflection",
     body: "Pages written, writing rhythm, and the words you kept returning to — gathered for you.",
   },
 ];
 
 function Landing() {
+  const { session, ready } = useSession();
+
   return (
     <div className="paper-grain min-h-screen bg-background">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-7">
         <Logo />
-        <nav className="flex items-center gap-6 text-sm">
-          <Link to="/prompts" className="underline-grow hidden text-ink-soft sm:inline">
+        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+          <Link to="/prompts" className="underline-grow text-ink-soft">
             Prompts
           </Link>
-          <Link to="/login" className="underline-grow text-ink-soft">
-            Sign in
-          </Link>
-          <Link
-            to="/signup"
-            className="rounded-lg bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-all duration-300 hover:shadow-lift"
-          >
-            Start writing
-          </Link>
+          {ready && session ? (
+            <Link
+              to="/today"
+              className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
+            >
+              <Home className="size-4" />
+              Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link to="/login" className="underline-grow text-ink-soft">
+                Sign in
+              </Link>
+              <Link
+                to="/signup"
+                className="rounded-lg bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
+              >
+                Start writing
+              </Link>
+            </>
+          )}
         </nav>
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-24">
-        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
+        <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
           <div>
             <p className="stagger text-[0.68rem] font-semibold tracking-[0.18em] text-muted-foreground">
               A JOURNAL THAT DOESN'T RUSH YOU
@@ -95,7 +110,7 @@ function Landing() {
             >
               <Link
                 to="/signup"
-                className="group flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-medium text-primary-foreground transition-all duration-300 hover:shadow-lift"
+                className="group flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
               >
                 Begin your first page
                 <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -118,17 +133,17 @@ function Landing() {
           </div>
 
           <div className="stagger relative" style={{ animationDelay: "180ms" }}>
-            <div className="absolute -top-5 -right-3 hidden w-56 rotate-3 rounded-xl border border-border/70 bg-accent p-5 shadow-paper sm:block">
+            <div className="absolute -top-4 -right-2 hidden w-52 rotate-2 rounded-xl border border-border/70 bg-accent p-5 shadow-paper sm:block">
               <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-muted-foreground">
                 TODAY'S PROMPT
               </p>
               <p className="mt-2 font-serif text-xl leading-snug">{prompts[0]}</p>
             </div>
-            <div className="rounded-2xl border border-border/70 bg-card p-8 shadow-lift">
+            <div className="rounded-2xl border border-border/70 bg-card p-6 sm:p-8 shadow-lift">
               <p className="text-xs text-muted-foreground">May 17, 2024 · Morning pages</p>
               <h2 className="mt-2 text-3xl">A slower kind of morning</h2>
               <div className="ruled-lines mt-5 font-serif text-[1.05rem] text-ink-soft">
-                {entries[0].body.map((p) => (
+                {entries[0]?.body?.map((p) => (
                   <p key={p} className="mb-4">
                     {p}
                   </p>
@@ -154,7 +169,7 @@ function Landing() {
             {features.map((f, i) => (
               <div
                 key={f.title}
-                className="stagger rounded-xl border border-border/70 bg-card p-6 transition-shadow duration-500 hover:shadow-lift"
+                className="stagger rounded-xl border border-border/70 bg-card p-6 transition-shadow duration-200 hover:shadow-green"
                 style={{ animationDelay: `${i * 90}ms` }}
               >
                 <f.icon className="size-5 text-primary" />
@@ -193,7 +208,7 @@ function Landing() {
                 key={e.id}
                 to="/entries/$entryId"
                 params={{ entryId: e.id }}
-                className="stagger block rounded-xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lift"
+                className="stagger block rounded-xl border border-border/70 bg-card p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-green"
                 style={{ animationDelay: `${i * 100}ms` }}
               >
                 <span className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -216,25 +231,25 @@ function Landing() {
           </h2>
           <Link
             to="/signup"
-            className="mt-9 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-medium text-primary-foreground transition-all duration-300 hover:shadow-lift"
+            className="mt-9 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
           >
             Start your trail <ArrowRight className="size-4" />
           </Link>
         </div>
       </section>
 
-      <footer className="border-t border-border/70 py-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 text-sm text-muted-foreground">
+      <footer className="border-t border-border/70 py-10">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-6 text-sm text-muted-foreground">
           <Logo />
           <div className="flex gap-6">
-            <Link to="/prompts" className="underline-grow">
-              Prompt library
+            <Link to="/about" className="underline-grow">
+              About
             </Link>
-            <Link to="/login" className="underline-grow">
-              Sign in
+            <Link to="/privacy" className="underline-grow">
+              Privacy
             </Link>
-            <Link to="/signup" className="underline-grow">
-              Create account
+            <Link to="/terms" className="underline-grow">
+              Terms
             </Link>
           </div>
         </div>

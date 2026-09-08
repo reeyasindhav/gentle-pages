@@ -65,7 +65,7 @@ function ResetPage() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-lg bg-primary py-3.5 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lift"
+            className="w-full rounded-lg bg-primary py-3.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
           >
             Send reset link
           </button>
@@ -74,3 +74,4 @@ function ResetPage() {
     </AuthLayout>
   );
 }
+

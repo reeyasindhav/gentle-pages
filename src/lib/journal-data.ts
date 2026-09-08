@@ -11,8 +11,7 @@ export const moods: { key: MoodKey; label: string; color: string }[] = [
 export const moodColor = (key: MoodKey) =>
   moods.find((m) => m.key === key)?.color ?? "var(--mood-quiet)";
 
-export const moodLabel = (key: MoodKey) =>
-  moods.find((m) => m.key === key)?.label ?? "Quiet";
+export const moodLabel = (key: MoodKey) => moods.find((m) => m.key === key)?.label ?? "Quiet";
 
 export type Entry = {
   id: string;
@@ -254,3 +253,97 @@ export const user = {
   joined: "March 2023",
   email: "morgan@papertrail.app",
 };
+
+export const favKey = "papertrail.favorites";
+export const booksKey = "papertrail.books";
+
+export function getFavorites(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(window.localStorage.getItem(favKey) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+export function toggleFavorite(id: string): string[] {
+  const current = getFavorites();
+  const next = current.includes(id) ? current.filter((x) => x !== id) : [...current, id];
+  window.localStorage.setItem(favKey, JSON.stringify(next));
+  return next;
+}
+
+export function getBooks() {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(window.localStorage.getItem(booksKey) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+export type Book = {
+  bookName: string;
+  learnings: string;
+  experience: string;
+  date: string;
+};
+
+export function saveBook(book: Book) {
+  const existing = getBooks();
+  existing.unshift(book);
+  window.localStorage.setItem(booksKey, JSON.stringify(existing));
+  return existing;
+}
+
+export function getTagCounts() {
+  const counts: Record<string, number> = {};
+  entries.forEach((e) => {
+    e.tags.forEach((t) => {
+      counts[t] = (counts[t] || 0) + 1;
+    });
+  });
+  return Object.entries(counts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+export function getStats() {
+  const totalWords = entries.reduce((sum, e) => sum + e.words, 0);
+  const sorted = [...entries].sort((a, b) => b.words - a.words);
+  const longestEntry = sorted[0] ?? null;
+  const moodCounts: Record<string, number> = {};
+  entries.forEach((e) => {
+    moodCounts[e.mood] = (moodCounts[e.mood] || 0) + 1;
+  });
+  const topMood = Object.entries(moodCounts).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "quiet";
+  return {
+    totalEntries: entries.length,
+    totalWords,
+    avgWords: entries.length ? Math.round(totalWords / entries.length) : 0,
+    longestEntry: longestEntry ?? {
+      id: "",
+      title: "No entries yet",
+      excerpt: "",
+      date: "",
+      displayDate: "",
+      mood: "quiet",
+      tags: [],
+      words: 0,
+    },
+    topMood,
+    streak: user.streak,
+    thisMonth: entries.filter((e) => e.date.startsWith("2024-05")).length,
+  };
+}
+
+export const onboardingKey = "papertrail.onboarded";
+
+export function isOnboarded(): boolean {
+  if (typeof window === "undefined") return false;
+  return window.localStorage.getItem(onboardingKey) === "true";
+}
+
+export function completeOnboarding() {
+  window.localStorage.setItem(onboardingKey, "true");
+}
