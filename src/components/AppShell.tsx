@@ -5,15 +5,12 @@ import {
   ChevronDown,
   Flame,
   type LucideIcon,
-  LogOut,
   PenLine,
   Plus,
   Search,
   Settings,
-  Star,
-  Tag,
-  BarChart3,
-  Heart,
+  Sparkles,
+  LogOut,
   Quote,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
@@ -30,14 +27,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -47,16 +36,7 @@ import {
 } from "@/components/ui/command";
 
 type NavItem = {
-  to:
-    | "/today"
-    | "/calendar"
-    | "/entries"
-    | "/prompts"
-    | "/review"
-    | "/tags"
-    | "/favorites"
-    | "/books"
-    | "/stats";
+  to: "/today" | "/calendar" | "/entries" | "/prompts" | "/review";
   label: string;
   icon: LucideIcon;
   dot?: boolean;
@@ -67,7 +47,7 @@ const nav: NavItem[] = [
   { to: "/calendar", label: "Calendar", icon: CalendarDays },
   { to: "/entries", label: "Entries", icon: BookOpen },
   { to: "/prompts", label: "Prompt library", icon: Quote },
-  { to: "/review", label: "Year in review", icon: Star },
+  { to: "/review", label: "Year in review", icon: Sparkles },
 ];
 
 export function AppShell({
@@ -85,7 +65,6 @@ export function AppShell({
   const { session, ready } = useSession();
   const [search, setSearch] = useState(false);
   const [newEntryOpen, setNewEntryOpen] = useState(false);
-  const [logoutOpen, setLogoutOpen] = useState(false);
 
   useEffect(() => {
     if (ready && !session) navigate({ to: "/login", replace: true });
@@ -110,7 +89,7 @@ export function AppShell({
 
   return (
     <div className="flex min-h-screen bg-background">
-      <aside className="sticky top-0 hidden h-screen w-[18rem] shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-5 py-8 lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-[19.5rem] shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-6 py-8 lg:flex">
         <Link to="/" className="animate-fade-in">
           <Logo />
         </Link>
@@ -118,11 +97,13 @@ export function AppShell({
         <button
           type="button"
           onClick={() => setNewEntryOpen(true)}
-          className="mt-8 flex items-center gap-2 rounded-lg border border-primary/15 bg-accent px-3 py-2 text-xs font-medium text-accent-foreground transition-all duration-300 hover:border-primary/35 hover:shadow-green focus:outline-none"
+          className="mt-8 flex w-full items-center justify-between rounded-lg border border-primary/15 bg-accent px-4 py-3.5 text-sm font-medium text-accent-foreground transition-all duration-300 hover:border-primary/35 hover:shadow-green focus:outline-none"
         >
-          <Plus className="size-3.5" />
-          New entry
-          <span className="text-[0.62rem] tracking-wider text-muted-foreground">⌘N</span>
+          <span className="flex items-center gap-2.5">
+            <Plus className="size-4" />
+            New entry
+          </span>
+          <span className="text-xs tracking-wider text-muted-foreground">⌘N</span>
         </button>
 
         <p className="mt-9 mb-3 text-[0.68rem] font-semibold tracking-[0.18em] text-muted-foreground">
@@ -169,7 +150,8 @@ export function AppShell({
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => {
-                  setLogoutOpen(true);
+                  signOut();
+                  navigate({ to: "/", replace: true });
                 }}
               >
                 <LogOut className="mr-2 size-4" /> Sign out
@@ -181,45 +163,12 @@ export function AppShell({
 
       <main className="paper-grain min-w-0 flex-1 px-6 py-10 sm:px-10 lg:px-14">
         <div className="mx-auto max-w-[74rem]">
-          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-border/70 pb-4 text-xs font-medium tracking-wide text-muted-foreground">
-            <Link to="/today" className="underline-grow hover:text-foreground">
-              Today
-            </Link>
-            <Link to="/entries" className="underline-grow hover:text-foreground">
-              Entries
-            </Link>
-            <Link to="/tags" className="underline-grow hover:text-foreground">
-              Tags
-            </Link>
-            <Link to="/favorites" className="underline-grow hover:text-foreground">
-              Favorites
-            </Link>
-            <Link to="/books" className="underline-grow hover:text-foreground">
-              Books
-            </Link>
-            <Link to="/stats" className="underline-grow hover:text-foreground">
-              Stats
-            </Link>
-            <Link to="/prompts" className="underline-grow hover:text-foreground">
-              Prompts
-            </Link>
-          </nav>
-
           <header className="flex flex-wrap items-start justify-between gap-6">
             <div className="stagger">
               <p className="text-[0.68rem] font-semibold tracking-[0.18em] text-muted-foreground">
                 {eyebrow}
               </p>
               <h1 className="mt-3 animate-ink text-5xl sm:text-6xl">{title}</h1>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
-                <div className="flex items-center gap-2">
-                  <BookOpen className="size-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">My Book</span>
-                </div>
-                <span className="text-xs text-muted-foreground">
-                  — your personal reading journal
-                </span>
-              </div>
             </div>
             <div className="flex items-center gap-3 animate-fade-in">
               <button
@@ -231,7 +180,6 @@ export function AppShell({
               </button>
               <Link
                 to="/settings"
-                aria-label="Settings"
                 className="flex size-11 items-center justify-center rounded-full bg-clay/25 font-serif transition-transform duration-300 hover:scale-105"
               >
                 {name.charAt(0)}
@@ -245,17 +193,6 @@ export function AppShell({
           </div>
         </div>
       </main>
-
-      <button
-        type="button"
-        onClick={() => setNewEntryOpen(true)}
-        aria-label="New entry (⌘N)"
-        className="fixed bottom-6 right-6 z-20 flex items-center gap-2 rounded-full border border-primary/15 bg-primary/90 px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-paper backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-green focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-      >
-        <Plus className="size-4" />
-        <span className="hidden sm:inline">New entry</span>
-        <span className="text-xs opacity-70">⌘N</span>
-      </button>
 
       <CommandDialog open={search} onOpenChange={setSearch}>
         <CommandInput placeholder="Search your pages..." />
@@ -280,37 +217,6 @@ export function AppShell({
       </CommandDialog>
 
       <NewEntryDialog open={newEntryOpen} onOpenChange={setNewEntryOpen} />
-
-      <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
-        <DialogContent className="max-w-sm p-0 shadow-xl sm:rounded-xl">
-          <DialogHeader className="border-b border-border/50 px-6 pt-6 pb-4">
-            <DialogTitle className="font-serif text-xl text-foreground">Sign out?</DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground">
-              You can always come back to your journal later.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="flex items-center justify-end gap-3 border-t border-border/50 px-6 py-4">
-            <button
-              type="button"
-              onClick={() => setLogoutOpen(false)}
-              className="rounded-lg px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:bg-accent"
-            >
-              Cancel
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                signOut();
-                setLogoutOpen(false);
-                navigate({ to: "/", replace: true });
-              }}
-              className="rounded-lg bg-destructive px-4 py-2 text-sm font-medium text-destructive-foreground transition-colors hover:bg-destructive/90"
-            >
-              Sign out
-            </button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
@@ -327,3 +233,4 @@ export function SectionCard({ className, children }: { className?: string; child
     </div>
   );
 }
+

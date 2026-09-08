@@ -66,11 +66,7 @@ export function NewEntryDialog({ open, onOpenChange }: NewEntryDialogProps) {
             <span className="text-xs text-muted-foreground">{words} words</span>
             <button
               type="button"
-              onClick={() => {
-                navigator.clipboard.writeText(prompt).catch(() => {
-                  toast.error("Failed to copy prompt");
-                });
-              }}
+              onClick={() => navigator.clipboard.writeText(prompt)}
               className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground"
             >
               Copy prompt
@@ -114,3 +110,4 @@ export function NewEntryDialog({ open, onOpenChange }: NewEntryDialogProps) {
     </Dialog>
   );
 }
+

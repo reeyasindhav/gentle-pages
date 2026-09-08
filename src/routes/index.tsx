@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CalendarDays, Flame, Home, Quote, Star, Tag } from "lucide-react";
-import { useSession } from "@/hooks/use-session";
+import { ArrowRight, CalendarDays, Flame, Quote, Sparkles, Tag } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { MoodDot } from "@/components/MoodDot";
 import { entries, moods, prompts } from "@/lib/journal-data";
@@ -45,49 +44,35 @@ const features = [
     body: "Your year as a field of small marks. Tap any day to reread what you were thinking.",
   },
   {
-    icon: Star,
+    icon: Sparkles,
     title: "Yearly reflection",
     body: "Pages written, writing rhythm, and the words you kept returning to — gathered for you.",
   },
 ];
 
 function Landing() {
-  const { session, ready } = useSession();
-
   return (
     <div className="paper-grain min-h-screen bg-background">
       <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-7">
         <Logo />
-        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-          <Link to="/prompts" className="underline-grow text-ink-soft">
+        <nav className="flex items-center gap-6 text-sm">
+          <Link to="/prompts" className="underline-grow hidden text-ink-soft sm:inline">
             Prompts
           </Link>
-          {ready && session ? (
-            <Link
-              to="/today"
-              className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
-            >
-              <Home className="size-4" />
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link to="/login" className="underline-grow text-ink-soft">
-                Sign in
-              </Link>
-              <Link
-                to="/signup"
-                className="rounded-lg bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
-              >
-                Start writing
-              </Link>
-            </>
-          )}
+          <Link to="/login" className="underline-grow text-ink-soft">
+            Sign in
+          </Link>
+          <Link
+            to="/signup"
+            className="rounded-lg bg-primary px-4 py-2.5 font-medium text-primary-foreground transition-all duration-200 hover:shadow-green"
+          >
+            Start writing
+          </Link>
         </nav>
       </header>
 
       <section className="mx-auto max-w-6xl px-6 pt-16 pb-24">
-        <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_1fr]">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
           <div>
             <p className="stagger text-[0.68rem] font-semibold tracking-[0.18em] text-muted-foreground">
               A JOURNAL THAT DOESN'T RUSH YOU
@@ -133,13 +118,13 @@ function Landing() {
           </div>
 
           <div className="stagger relative" style={{ animationDelay: "180ms" }}>
-            <div className="absolute -top-4 -right-2 hidden w-52 rotate-2 rounded-xl border border-border/70 bg-accent p-5 shadow-paper sm:block">
+            <div className="absolute -top-5 -right-3 hidden w-56 rotate-3 rounded-xl border border-border/70 bg-accent p-5 shadow-paper sm:block">
               <p className="text-[0.62rem] font-semibold tracking-[0.18em] text-muted-foreground">
                 TODAY'S PROMPT
               </p>
               <p className="mt-2 font-serif text-xl leading-snug">{prompts[0]}</p>
             </div>
-            <div className="rounded-2xl border border-border/70 bg-card p-6 sm:p-8 shadow-lift">
+            <div className="rounded-2xl border border-border/70 bg-card p-8 shadow-lift">
               <p className="text-xs text-muted-foreground">May 17, 2024 · Morning pages</p>
               <h2 className="mt-2 text-3xl">A slower kind of morning</h2>
               <div className="ruled-lines mt-5 font-serif text-[1.05rem] text-ink-soft">
@@ -148,7 +133,7 @@ function Landing() {
                     {p}
                   </p>
                 ))}
-              </div>
+              </div>+
               <div className="mt-4 flex items-center justify-between border-t border-rule pt-4 text-xs text-muted-foreground">
                 <span>74 words</span>
                 <span className="flex items-center gap-2">
@@ -238,18 +223,18 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-border/70 py-10">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-6 text-sm text-muted-foreground">
+      <footer className="border-t border-border/70 py-8">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 text-sm text-muted-foreground">
           <Logo />
           <div className="flex gap-6">
-            <Link to="/about" className="underline-grow">
-              About
+            <Link to="/prompts" className="underline-grow">
+              Prompt library
             </Link>
-            <Link to="/privacy" className="underline-grow">
-              Privacy
+            <Link to="/login" className="underline-grow">
+              Sign in
             </Link>
-            <Link to="/terms" className="underline-grow">
-              Terms
+            <Link to="/signup" className="underline-grow">
+              Create account
             </Link>
           </div>
         </div>
